@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-=======
 # organization-chart
-Tool for managing an organizational chat and viewing relevant relationships between different personnel.
->>>>>>> fd0f1324feab235f6f3c93c2f43e4fbb72bead13
+Tool for managing an organizational chat and viewing relevant relationships between different personnel. Rails API serving JSON to React front-end that creates a visualization chart of employee relationships. 
