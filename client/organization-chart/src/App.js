@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+// import {Test} from './components/Test'
 import OrgChart from './components/OrgChart'
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
           <h1 className="App-title">Your personal organization chart!</h1>
         </header>
         <OrgChart />
+        {/* <Test /> */}
       </div>
     );
   }
