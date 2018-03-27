@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Employee} from "../Employee/Employee"
+import {AddUserForm} from "../AddUserForm/AddUserForm"
+
 import styled from "styled-components"
 import axios from 'axios'
 
@@ -20,6 +22,22 @@ class OrgChart extends Component {
         }
     }
 
+    findPerson(newUser, manager, callback){
+        if (newUser.manager_id === manager.id) {
+            callback(newUser, manager)
+            return true;
+        
+        } else if (manager.direct_reports.length === 0) {
+            console.log("nobody here!!")
+            return false;
+        
+        } else {
+            manager.direct_reports.map((next_manager) => {
+                return this.findnewUser(newUser, next_manager, callback)
+            })
+        }
+    }
+
     componentDidMount() {
         axios.get('http://localhost:3001/api/v1/employee')
         .then((response) => {
@@ -30,7 +48,7 @@ class OrgChart extends Component {
     }
 
     //will cache internal data for easy access later
-    findEmployee = []
+    employeeCache = {}
 
     getEmployees(data){
         const children = (reports) => {
@@ -39,7 +57,8 @@ class OrgChart extends Component {
             }
         }
         return data.map((person) => {
-            this.findEmployee.push(person)
+            var numKey = parseInt(person.id)
+            this.employeeCache[numKey] = person
             return (
                 <Employee key={person.id} first_name={person.first_name} last_name={person.last_name} title={person.title}>
                         {children(person.direct_reports)}
@@ -58,8 +77,9 @@ class OrgChart extends Component {
             manager_id: ''
         })
         .then((response) => {
-            console.log(this.findEmployee)
+            console.log(this.employeeCache)
             console.log(response.data)
+            // this.state.employees.push(response.data)
         })
         .catch((error) => console.log(error))
     }
@@ -67,9 +87,7 @@ class OrgChart extends Component {
     render(){
         return (
             <Container>
-                <div>
-                    <button className="addUserBtn" onClick={this.addNewUser}>Add new user</button>
-                </div>
+                <AddUserForm onClick={this.addNewUser}/>
                 {this.getEmployees(this.state.employees)}
             </Container>
         )
