@@ -32,9 +32,31 @@ module Api::V1
         end
 
         def create
-            render json: {message: "working!"}
-            # employee = Employee.new(employee_params)
+            @newEmployee = Employee.new(employee_params)
+
+            if @newEmployee.save
+                render json: {status: 'SUCCESS', message: 'Created new employee', data: @newEmployee}, status: :ok
+            else
+                render json: {status: 'ERROR', message: 'Employee not saved', data: @newEmployee.errors}
+            end
         end
+
+        def destroy
+            @deleteEmployee = Employee.find(params[:id])
+            @deleteEmployee.destroy()
+            render json: {status: 'SUCCESS', message: 'Deleted employee', data: @deleteEmployee}, status: :ok
+        end
+
+        def update
+            @updateEmployee = Employee.find(params[:id])
+            if @updateEmployee.update_attributes(employee_params)
+                render json: {status: 'SUCCESS', message: 'Updated employee', data: @updateEmployee}, status: :ok
+            else
+                render json: {status: 'ERROR', message: 'Unable to update employee', data: @updateEmployee}
+            end
+        end
+
+        private
 
         def employee_params
             params.permit(:first_name, :last_name, :title, :manager_id)

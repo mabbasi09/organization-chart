@@ -4,11 +4,11 @@ import styled from "styled-components"
 import axios from 'axios'
 
 const Container = styled.div`
-    height: 150px;
-    width: 150px;
-    margin: 10px;
-    float: left;
-
+    background-color: grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
 `
 
 class OrgChart extends Component {
@@ -29,6 +29,9 @@ class OrgChart extends Component {
         .catch((error) => console.log(error))
     }
 
+    //will cache internal data for easy access later
+    findEmployee = []
+
     getEmployees(data){
         const children = (reports) => {
             if(reports.length >= 0){
@@ -36,17 +39,36 @@ class OrgChart extends Component {
             }
         }
         return data.map((person) => {
-            return <Employee key={person.id} first_name={person.first_name} last_name={person.last_name} title={person.title}>
+            this.findEmployee.push(person)
+            return (
+                <Employee key={person.id} first_name={person.first_name} last_name={person.last_name} title={person.title}>
                         {children(person.direct_reports)}
                 </Employee>
+            )
         });
     }
-        
+    
+    addNewUser = () => {
+        axios.post('http://localhost:3001/api/v1/employee', 
+        {
+            id: '',
+            first_name: '',
+            last_name: '',
+            title: '',
+            manager_id: ''
+        })
+        .then((response) => {
+            console.log(this.findEmployee)
+            console.log(response.data)
+        })
+        .catch((error) => console.log(error))
+    }
+
     render(){
         return (
             <Container>
                 <div>
-                    <button class="addUserBtn">Add new user</button>
+                    <button className="addUserBtn" onClick={this.addNewUser}>Add new user</button>
                 </div>
                 {this.getEmployees(this.state.employees)}
             </Container>

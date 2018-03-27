@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import logo from './rhabit-logo.png';
-import './App.css';
+import './App.css'
 import OrgChart from './components/OrgChart/OrgChart'
 import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  background-color: blue;
+  background-color: white;
   text-align: center;
 `
 
