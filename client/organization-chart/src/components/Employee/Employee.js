@@ -1,24 +1,40 @@
 import React, { Component } from 'react'
-import styled from "styled-components"
+import {Popup} from "../Popup/Popup"
+import "./Employee.css"
 
-const Items = styled.div`
-    background; lightyellow;
-    color: white;
-    border-radius: 25px 25px;
-    border-right: 5px solid darkseagreen;
-    border-left: 5px solid darkseagreen;
-    border-bottom: 5px solid lightyellow
-    margin: 0.5vw
-`
 
 export class Employee extends Component {
+    constructor(){
+        super()
+        this.state = {
+            showPopup: false
+        }
+    }
+
+    togglePopup() {
+        this.setState({
+            showPopup: !this.state.showPopup
+        })
+    }
+
     render(){
         return (
             <div>
-                <Items>
-                    <div>{this.props.first_name} {this.props.last_name}</div>
-                    {this.props.title}
-                </Items>
+                <div className="employee">
+                    <div className="employee-info">
+                        <div onClick={this.getId}>
+                            {this.props.first_name} {this.props.last_name}
+                        </div>
+                        <span><i>{this.props.title}</i></span>
+                    </div>
+                    <button className="add-employee-btn" onClick={this.togglePopup.bind(this)}>Add Employee</button>
+                    
+                    {this.state.showPopup ?
+                        <Popup closePopup={this.togglePopup.bind(this)}/> :
+                        null
+                    }
+                </div>
+                
                 {this.props.children}
             </div>
         )

@@ -12,6 +12,7 @@
   height: 150px;
   padding: 20px;
   color: rgba(37, 170, 48, 0.829);
+  align-content: center;
 }
 
 .App-title {

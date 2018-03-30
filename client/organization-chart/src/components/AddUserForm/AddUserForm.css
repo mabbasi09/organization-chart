@@ -1,5 +1,5 @@
 .addUserBtn {
-    background: rgb(54, 146, 231);
+    background: rgb(16, 199, 86);
     color: white;
     border: solid 1px;
     font-size: 18px;
@@ -7,4 +7,8 @@
     margin-right: 10px;
     margin-left: 10px;
     padding:10px;
+}
+
+.employee-form {
+    width: 15%
 }
