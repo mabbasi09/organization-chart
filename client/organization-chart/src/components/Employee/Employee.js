@@ -4,14 +4,15 @@ import "./Employee.css"
 
 
 export class Employee extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             showPopup: false
         }
     }
 
     togglePopup() {
+
         this.setState({
             showPopup: !this.state.showPopup
         })
@@ -30,7 +31,9 @@ export class Employee extends Component {
                     <button className="add-employee-btn" onClick={this.togglePopup.bind(this)}>Add Employee</button>
                     
                     {this.state.showPopup ?
-                        <Popup closePopup={this.togglePopup.bind(this)}/> :
+                        <Popup closePopup={this.togglePopup.bind(this)} 
+                            managerId={this.props.userId} employees={this.props.allEmployees} /> 
+                        :
                         null
                     }
                 </div>

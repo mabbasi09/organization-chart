@@ -35,8 +35,8 @@ class OrgChart extends Component {
     componentDidMount() {
         axios.get('http://localhost:3001/api/v1/employee#index')
         .then((response) => {
-            console.log(response.data.data)
             this.setState({employees: response.data.data})
+            console.log(this.state.employees)
         })
         .catch((error) => console.log(error))
     }
@@ -52,17 +52,17 @@ class OrgChart extends Component {
             // this.employeeCache[numKey] = person
             // console.log(this.employeeCache)
             return (
-                <Employee key={person.id} userId={person.id} first_name={person.first_name} last_name={person.last_name} title={person.title}>
+                <Employee key={person.id} allEmployees={this.state.employees} userId={person.id} 
+                          first_name={person.first_name} last_name={person.last_name} title={person.title}>
                         {children(person.direct_reports)}
                 </Employee>
             )
         });
     }
 
-    render(){
+    render() {
         return (
             <div className="org-chart-tree">
-                <AddUserForm onClick={this.addNewUser}/>
                 {this.getEmployees(this.state.employees)}
             </div >
         )

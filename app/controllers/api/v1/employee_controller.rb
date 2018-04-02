@@ -33,14 +33,14 @@ module Api::V1
 
         def create
             puts request.raw_post
-            # @newEmployee = Employee.new(employee_params)
+            @newEmployee = Employee.new(employee_params)
 
-            # if @newEmployee.save
-            #     puts @newEmployee
-            #     render json: {status: 'SUCCESS', message: 'Created new employee', data: @newEmployee}, status: :ok
-            # else
-            #     render json: {status: 'ERROR', message: 'Employee not saved', data: @newEmployee.errors}
-            # end
+            if @newEmployee.save
+                puts @newEmployee
+                render json: {status: 'SUCCESS', message: 'Created new employee', data: @newEmployee}, status: :ok
+            else
+                render json: {status: 'ERROR', message: 'Employee not saved', data: @newEmployee.errors}
+            end
         end
 
         def destroy
