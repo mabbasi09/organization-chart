@@ -16,7 +16,6 @@ export class Popup extends Component {
                 title: '',
                 manager_id: this.props.managerId
             },
-            employees: this.props.employees
         }
     }
 
@@ -52,27 +51,13 @@ export class Popup extends Component {
         event.preventDefault()
 
         const user = this.state.newUser;
-        const root = this.state.employees[0];
 
-        // this.findPerson(user, root, (newEmployee, manager)=> {
-            
-        //     console.log(manager.first_name + " is the manager of " + newEmployee.first_name)
-        //     this.setState({
-        //         manager
-        //     })
-        // })
-        console.log(this.state.employees)
-
-        // axios.post('http://localhost:3001/api/v1/employee/', user)
-        // .then((response) => {
-        //     const newUser = response.data.data;
-        //     console.log(newUser)
-        //     // this.findPerson()
-        //     this.setState({
-        //         employees: newUser
-        //     }) 
-        // })
-        // .catch((error) => console.log(error))
+        axios.post('http://localhost:3001/api/v1/employee/', user)
+        .then((response) => {
+            console.log(response.data)
+            this.props.employees([response.data.data])
+        })
+        .catch((error) => console.log(error))
     }
 
     render() {

@@ -14,8 +14,13 @@ class OrgChart extends Component {
         }
     }
 
-    //will cache internal data for easy access later
-    employeeCache = {}
+    updatedEmployees (data) {
+        this.setState({employees: data})
+    }
+
+    deletedEmployees (data) {
+        this.setState({employees: data})
+    }
 
     findPerson(newUser, manager, callback){
         if (newUser.manager_id === manager.id) {
@@ -47,14 +52,12 @@ class OrgChart extends Component {
                 return <div className="org-chart-tree">{this.getEmployees(reports)}</div>
             }
         }
+        
         return data.map((person) => {
-            // var numKey = parseInt(person.id)
-            // this.employeeCache[numKey] = person
-            // console.log(this.employeeCache)
             return (
-                <Employee key={person.id} allEmployees={this.state.employees} userId={person.id} 
-                          first_name={person.first_name} last_name={person.last_name} title={person.title}>
-                        {children(person.direct_reports)}
+                <Employee key={person.id} person={person} allEmployees={this.updatedEmployees.bind(this)}
+                         deletedEmployees={this.deletedEmployees.bind(this)}>
+                        <div className="children-container">{children(person.direct_reports)}</div>
                 </Employee>
             )
         });

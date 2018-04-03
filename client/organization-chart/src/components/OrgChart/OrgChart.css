@@ -1,5 +1,5 @@
 .org-chart-tree {
-    background-color: grey;
+    background-color: rgb(247, 243, 189);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
